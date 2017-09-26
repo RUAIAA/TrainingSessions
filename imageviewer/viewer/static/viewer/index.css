@@ -1,0 +1,19 @@
+.viewedImg {
+	width: 500px !important;
+	height: 500px !important;
+}
+
+.ImageData {
+	margin: 100px;
+}
+
+#submittedImgs {
+	margin: 50px;
+}
+
+#submittedImgs > img {
+	width: 200px;
+	height: 200px;
+	margin: 20px;
+}
+
