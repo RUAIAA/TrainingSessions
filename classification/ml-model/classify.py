@@ -13,7 +13,7 @@ args = parser.parse_args()
 
 IMG_FILEPATH = args.img
 CHECKPOINT_DIRECTORY = "checkpoints/lr_initial_val=0.003,run=1/"
-PREDICTION_LOOKUP_TABLE = ["black circle", "red circle", "yellow circle", "black rectangle", "red rectangle", "yellow rectangle", "black triangle", "red triangle", "yellow triangle"]
+PREDICTION_LOOKUP_TABLE = ["black circle", "red circle", "yellow circle", "black square", "red square", "yellow square", "black triangle", "red triangle", "yellow triangle"]
 
 
 

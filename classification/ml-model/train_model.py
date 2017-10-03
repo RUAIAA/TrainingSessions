@@ -43,10 +43,10 @@ conv_params = [
 fc_params = [
 		{"output_channels": 100},
 		{"output_channels": label_shape[0]}]
-lr_initial_val_options = [0.003, 0.009, 0.027]
+lr_initial_val_options = [0.003, 0.006]
 lr_decay_rate = 0.9995
 lr_steps_between_decay = 1
-num_epochs = 2
+num_epochs = 8
 batch_size = 100
 
 
@@ -191,3 +191,5 @@ for lr_initial_val in lr_initial_val_options:
 		
 		saver.save(sess, checkpoint_directory+"model.ckpt", global_step=gs)
 		sess.close()
+		
+print("Done training, if you want to view tensorboard run this command: tensorboard --logdir tboardlogs host=localhost")

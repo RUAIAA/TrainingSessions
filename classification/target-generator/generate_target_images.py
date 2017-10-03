@@ -83,7 +83,7 @@ alphanumeric_offset_from_center_range = range(-2, 3)
 # This script will choose a random rotation angle between 0 and 360 degrees every time it generates an image. The rotation is executed to the target container after drawing the alphanumeric onto it
 rotation_angle_range = range(0, 360)
 # This script will choose a target container size every time it generates an image. It resizes the container after drawing the alphanumeric on it (if I resize the container before drawing the alphanumeric on it, I run the risk of making the container smaller than the alphanumeric). Note that the target container size does not equal the target size.
-target_size_range = range(25, 30)
+target_size_range = range(15, 30)
 # This script will choose 3 random means and stddevs for the gaussian distributions that it samples noise from. It uses a different distribution for each channel (r g and b). Higher stddev values result in more noise. Be careful with the mean value - if it's too high or low, colors can accidentally be converted into other colors
 noise_distribution_mean_range = range(-10, 11)
 noise_distribution_stddev_range = range(20, 40)
