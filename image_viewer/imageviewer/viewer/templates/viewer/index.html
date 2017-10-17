@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="/static/viewer/index.css">
+	<link rel="stylesheet" href="/static/viewer/croppie.css">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="/static/viewer/croppie.min.js"></script>
+	<script src="/static/viewer/js.cookie.js"></script>
+</head>
+<body>
+	<h1>Image Viewer</h1>
+
+	<div class="viewedImg"></div>
+
+	<div class="ImageData" style="margin: 100px">
+		<label>Orientation: </label>
+		<input id="orientation"></input>
+
+		<label>Shape: </label>
+		<input id="shape"></input>
+
+		<label>Alphanumeric: </label>
+		<input id="alphanumeric"></input>
+
+		<label>Color: </label>
+		<input id="color"></input>
+	</div>
+
+	<button id="done_cropping">CROP!</button>
+
+	<script>
+		var basic = $('.viewedImg').croppie({
+			viewport: {
+				width: 500,
+				height: 500
+			},
+			enableOrientation: true,
+			enableResize: true
+		});
+
+		basic.croppie('bind', {
+			url: '/static/media/{{ image.img.url }}',
+		});
+
+		var csrftoken = Cookies.get('csrftoken')
+
+		function csrfSafeMethod(method) {
+			// these HTTP methods do not require CSRF protection
+			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+
+		$.ajaxSetup({
+			beforeSend: function(xhr, settings) {
+			        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+					xhr.setRequestHeader("X-CSRFToken", csrftoken);
+				}
+			}
+
+		});
+
+
+		$("#done_cropping").on('click', function() {
+			basic.croppie('result', 'blob').then(function(blob) {
+
+				var fd = new FormData();
+				fd.append('orientation', $("#orientation").val());
+				fd.append('shape', $("#shape").val());
+				fd.append('alphanumeric', $("#alphanumeric").val());
+				fd.append('color', $("#color").val());
+
+				$.ajax({
+					type: "POST",
+					url: "/submitToInterop/",
+					data: fd,
+					processData: false,
+					contentType: false
+				}).done(function(data) {
+					console.log(data);
+				});
+				
+				var img = document.createElement('img');
+				img.src = window.URL.createObjectURL(blob);
+				document.getElementById('submittedImgs').append(img);
+			});
+		});
+	</script>
+
+	<div id="submittedImgs">
+	</div>
+</body>
+</html>
